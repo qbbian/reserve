@@ -65,7 +65,7 @@ available = False
 for slot in slots:
     info = slot.find_elements(By.TAG_NAME, 'td')
     if len(info) > 2:
-        if "9:00pm" in info[1].text and "10:00pm" in info[1].text:
+        if "6:00pm" in info[1].text and "7:30pm" in info[1].text:
             checkbox_col = info[2]
             checkbox_col.find_element(By.NAME, "enrollments").click()
             # Don't be greedy, once found one let's GTFO
