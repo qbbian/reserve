@@ -20,14 +20,22 @@ dr.find_element("name", "pID").send_keys(username)
 dr.find_element("name", "pw").send_keys(password)
 # click login button
 dr.find_element("name", "login").click()
+time.sleep(1)
 
 dr.get('https://www.thprd.org/portal/classes/reservewizard.cfm')
 
 # Select Tennis
-select = Select(dr.find_element(By.NAME, 'activity'))
-select.select_by_visible_text('Tennis')
-next_button = dr.find_element(By.XPATH, "//input[@type='submit'][@value='Next']")
-next_button.click()
+while True:
+    try:
+        select = Select(dr.find_element(By.NAME, 'activity'))
+        select.select_by_visible_text('Tennis')
+        next_button = dr.find_element(By.XPATH, "//input[@type='submit'][@value='Next']")
+        next_button.click()
+    except Exception as e:
+        print(f"An error has occurred: {e}");
+        time.sleep(0.5)
+    else:
+        break;
 
 available = False
 # Loop here until the desired courts are available (at 8am sharp)
@@ -35,8 +43,15 @@ while not available:
     # Select Location
     #select = Select(dr.find_element(By.NAME, 'SelectFacility'))
     #select.select_by_visible_text('Tennis Center')
-    next_buttons = dr.find_elements(By.XPATH, "//input[@type='submit'][@value='Next']")
-    next_buttons[-1].click()
+    while True:
+        try:
+            next_buttons = dr.find_elements(By.XPATH, "//input[@type='submit'][@value='Next']")
+            next_buttons[-1].click()
+        except Exception as e:
+            print(f"An error has occurred: {e}");
+            time.sleep(0.5)
+        else:
+            break;
 
     # Select Date
     dt = datetime.now()
@@ -50,11 +65,18 @@ while not available:
         available = True
     except:
         print("Date is not yet available")
-        time.sleep(1)
+        time.sleep(0.5)
 
 # Courts are open!
-go_button = dr.find_element(By.XPATH, "//input[@type='submit'][@value='Go']")
-go_button.click()
+while True:
+    try:
+        go_button = dr.find_element(By.XPATH, "//input[@type='submit'][@value='Go']")
+        go_button.click()
+    except Exception as e:
+        print(f"An error has occurred: {e}");
+        time.sleep(0.5)
+    else:
+        break;
 
 # Now add them to the cart!
 # We are only interested in 7pm to 8:30pm classes, hey hey
