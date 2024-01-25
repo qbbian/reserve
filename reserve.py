@@ -93,6 +93,14 @@ for slot in slots:
             # Don't be greedy, once found one let's GTFO
             available = True
             break
+        # On some days, there are no 6 to 7:30pm slots at all. We will
+        # choose the next best one then.
+        elif "6:30pm" in info[1].text and "8:00pm" in info[1].text:
+            checkbox_col = info[2]
+            checkbox_col.find_element(By.NAME, "enrollments").click()
+            # Don't be greedy, once found one let's GTFO
+            available = True
+            break
             
 # Last tr is the enroll row
 if available is True:
